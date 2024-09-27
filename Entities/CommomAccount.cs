@@ -3,12 +3,10 @@
     // Esta conta só vai estar disponível p/ aqueles cuja idade for igual ou maior que 18
     internal class CommomAccount : VerificationAccount
     {
-        // NEW PROPERTIES
         public ulong CPF { get; set; }
         public double InitialBalance { get; set; }
         public CommomAccount() { }
 
-        // NEW CONSTRUCTORS
         public CommomAccount(string firstName, string lastName, string email, ulong rg, DateTime birthdayDate, char gender, ulong cpf, double initialBalance)
             : base(firstName, lastName, email, rg, birthdayDate, gender)
         {
