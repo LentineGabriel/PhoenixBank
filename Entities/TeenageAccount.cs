@@ -1,4 +1,6 @@
-﻿namespace PhoenixBank.Entities
+﻿using System.Globalization;
+
+namespace PhoenixBank.Entities
 {
     internal class TeenageAccount : VerificationAccount
     {
@@ -42,15 +44,15 @@
             {
                 // deposit
                 case 1:
-                    Console.Write("Enter the amount you wish to deposit: "); double amount = double.Parse(Console.ReadLine());
-                    Deposit(amount);
+                    Console.Write("Enter the amount you wish to deposit: "); double dAmount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Deposit(dAmount);
                     Console.WriteLine("New Balance: " + InitialBalance);
                     break;
 
                 // withdraw
                 case 2:
-                    Console.WriteLine("Enter the amount you wish to deposit: "); double amount2 = double.Parse(Console.ReadLine());
-                    Withdraw(amount2);
+                    Console.WriteLine("Enter the amount you wish to withdraw: "); double wAmount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Withdraw(wAmount);
                     Console.WriteLine("New Balance: " + InitialBalance);
                     break;
 
