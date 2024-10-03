@@ -62,11 +62,12 @@ namespace PhoenixBank
                 Console.WriteLine("1 - Commom Account");
                 Console.WriteLine("2 - Enterprise Account");
                 Console.WriteLine("3 - Entrepreneur Account");
+                Console.WriteLine("4 - Savings Account");
                 int op = int.Parse(Console.ReadLine());
 
                 switch (op)
                 {
-                    case 1:
+                    case 1: // commom account
                         Console.Clear();
                         Console.Write("CPF (just numbers): "); ulong cpf = ulong.Parse(Console.ReadLine());
                         Console.Write("Initial Balance: "); double initialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -78,7 +79,7 @@ namespace PhoenixBank
                         commomAcc.EnterCommomAccount();
                         break;
 
-                    case 2:
+                    case 2: // enterprise account
                         Console.Clear();
                         Console.WriteLine("CNPJ (just numbers): "); ulong cnpj = ulong.Parse(Console.ReadLine());
                         Console.WriteLine("Initial Balance: "); double eInitialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -97,7 +98,7 @@ namespace PhoenixBank
                         Console.Write("CPF or CNPJ? (1 - CPF; 2 - CNPJ): "); int op2 = int.Parse(Console.ReadLine());
                         switch (op2)
                         {
-                            case 1:
+                            case 1: // cpf
                                 Console.Write("CPF: "); ulong eCpf = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct1 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -106,7 +107,7 @@ namespace PhoenixBank
                                 
                                 entrepreneursCpfAcc.EnterEntrepreneursAccount();
                                 break;
-                            case 2:
+                            case 2: // cnpj
                                 Console.Write("CNPJ: "); ulong eCnpj = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct2 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -116,6 +117,15 @@ namespace PhoenixBank
                                 entrepreneursCnpjAcc.EnterEntrepreneursAccount();
                                 break;
                         }
+                        break;
+
+                    case 4: // savings account
+                        SavingsAccount sA = new SavingsAccount();
+                        sA.EnterSavingsAccount();
+                        break;
+
+                    default: // a different number
+                        Console.WriteLine("Error! Invalid Number.");
                         break;
                 }
             }

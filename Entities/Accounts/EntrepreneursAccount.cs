@@ -74,7 +74,8 @@ namespace PhoenixBank.Entities.Accounts
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1 - Deposit");
             Console.WriteLine("2 - Withdraw");
-            Console.WriteLine("3 - Exit");
+            Console.WriteLine("3 - Savings Account");
+            Console.WriteLine("4 - Exit");
             int op = int.Parse(Console.ReadLine());
 
             switch (op)
@@ -93,8 +94,14 @@ namespace PhoenixBank.Entities.Accounts
                     Console.WriteLine("New Balance: " + InitialBalance);
                     break;
 
-                // exit
+                // savings
                 case 3:
+                    SavingsAccount sA = new SavingsAccount();
+                    sA.EnterSavingsAccount();
+                    break;
+
+                // exit
+                case 4:
                     Environment.Exit(0);
                     break;
 

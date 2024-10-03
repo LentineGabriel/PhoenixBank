@@ -56,8 +56,14 @@ namespace PhoenixBank.Entities.Accounts
                     Console.WriteLine("New Balance: " + InitialBalance);
                     break;
 
-                // exit
+                // savings
                 case 3:
+                    SavingsAccount sA = new SavingsAccount();
+                    sA.EnterSavingsAccount();
+                    break;
+
+                // exit
+                case 4:
                     Environment.Exit(0);
                     break;
 
