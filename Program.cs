@@ -1,5 +1,6 @@
-﻿using PhoenixBank.Entities;
+﻿using PhoenixBank.Entities.Accounts;
 using PhoenixBank.Entities.Exceptions;
+using PhoenixBank.Services.Interfaces;
 using System.Globalization;
 
 // Por enquanto, por não ter um banco de dados, o banco sempre vai entender que, ao ser aberto, vai criar uma nova conta
@@ -32,7 +33,6 @@ namespace PhoenixBank
 
                 Console.Write("Birthday Date (dd/mm/yyyy): "); DateTime birthdayDate = DateTime.Parse(Console.ReadLine());
                 int age = vAcc.ValidateBirthdayDate(birthdayDate);
-                Console.WriteLine($"Você tem {age} anos.");
 
                 VerificationAccount acc = new VerificationAccount(firstName, lastName, email, rg, birthdayDate, gender);
 
@@ -92,6 +92,30 @@ namespace PhoenixBank
                         break;
 
                     case 3:
+                        Console.Clear();
+                        Console.Write("Company Name: "); string eName = Console.ReadLine();
+                        Console.Write("CPF or CNPJ? (1 - CPF; 2 - CNPJ): "); int op2 = int.Parse(Console.ReadLine());
+                        switch (op2)
+                        {
+                            case 1:
+                                Console.Write("CPF: "); ulong eCpf = ulong.Parse(Console.ReadLine());
+                                Console.Write("Company Type: "); string ct1 = Console.ReadLine();
+                                Console.Write("Initial Balance: "); double ib = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                Console.Write("Credit: "); double cr = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                EntrepreneursAccount entrepreneursCpfAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct1, new IPersonIndividual(), ib, 250000.00, cr); 
+                                
+                                entrepreneursCpfAcc.EnterEntrepreneursAccount();
+                                break;
+                            case 2:
+                                Console.Write("CNPJ: "); ulong eCnpj = ulong.Parse(Console.ReadLine());
+                                Console.Write("Company Type: "); string ct2 = Console.ReadLine();
+                                Console.Write("Initial Balance: "); double ib2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                Console.Write("Credit: "); double cr2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                EntrepreneursAccount entrepreneursCnpjAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct2, new IPersonIndividual(), ib2, 250000.00, cr2);
+                                
+                                entrepreneursCnpjAcc.EnterEntrepreneursAccount();
+                                break;
+                        }
                         break;
                 }
             }

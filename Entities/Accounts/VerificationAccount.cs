@@ -1,15 +1,15 @@
 ﻿using PhoenixBank.Entities.Exceptions;
 using System.Text.RegularExpressions;
 
-namespace PhoenixBank.Entities
+namespace PhoenixBank.Entities.Accounts
 {
     internal class VerificationAccount
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public ulong RG { get; set; }
-        public DateTime BirthdayDate { get; set; }
+        public ulong RG { get; private set; } // não pode ser alterado
+        public DateTime BirthdayDate { get; private set; } // não pode ser alterado
         public char Gender { get; set; }
 
         public VerificationAccount() { }
@@ -52,17 +52,17 @@ namespace PhoenixBank.Entities
 
             foreach (string d in domains)
             {
-                if(email.EndsWith("@" + d))
+                if (email.EndsWith("@" + d))
                 {
                     validDomain = true;
                     break;
                 }
             }
-            if(validDomain) Console.WriteLine("O e-mail pertence a um domínio válido. Prossiga!");
+            if (validDomain) Console.WriteLine("O e-mail pertence a um domínio válido. Prossiga!");
             else
             {
                 throw new Exception("O e-mail não pertence a um domínio válido.");
-                System.Environment.Exit(0);
+                Environment.Exit(0);
             }
         }
 

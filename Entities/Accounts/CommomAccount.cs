@@ -1,12 +1,12 @@
 ﻿using System.Globalization;
 using System.Reflection;
 
-namespace PhoenixBank.Entities
+namespace PhoenixBank.Entities.Accounts
 {
     // Esta conta só vai estar disponível p/ aqueles cuja idade for igual ou maior que 18
     internal class CommomAccount : VerificationAccount
     {
-        public ulong CPF { get; set; }
+        public ulong CPF { get; private set; }
         public double InitialBalance { get; set; }
         public CommomAccount() { }
 
@@ -58,7 +58,7 @@ namespace PhoenixBank.Entities
 
                 // exit
                 case 3:
-                    System.Environment.Exit(0);
+                    Environment.Exit(0);
                     break;
 
                 // a different number
