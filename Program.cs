@@ -133,7 +133,7 @@ namespace PhoenixBank
             {
                 Console.WriteLine("Error! Type numbers, not letters.");
             }
-            catch (Exception ex) // outros erros
+            catch (Exception ex) // outros erros (lembrando que os principais já estão sendo tratados em suas respectivas classes)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }

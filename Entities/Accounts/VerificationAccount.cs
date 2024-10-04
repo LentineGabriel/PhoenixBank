@@ -28,24 +28,35 @@ namespace PhoenixBank.Entities.Accounts
         {
             // Caso os campos estejam vazios
             if (firstName == null || lastName == null)
-                throw new DomainException("The field must be filled.");
+                throw new NameException("The field must be filled.");
 
             // Caso os nomes sejam preenchidos com números ou caracteres especiais
-            if (!Regex.IsMatch(firstName, @"^[a-zA-Z\s]+$")) throw new DomainException("Invalid Name! Only letters and spaces are allowed.");
-            if (!Regex.IsMatch(lastName, @"^[a-zA-Z\s]+$")) throw new DomainException("Invalid Name! Only letters and spaces are allowed.");
+            if (!Regex.IsMatch(firstName, @"^[a-zA-Z\s]+$")) throw new NameException("Invalid Name! Only letters and spaces are allowed.");
+            if (!Regex.IsMatch(lastName, @"^[a-zA-Z\s]+$")) throw new NameException("Invalid Name! Only letters and spaces are allowed.");
         }
 
         // tratando o gênero
         public void ValidateGender(char gender)
         {
+            if (char.IsWhiteSpace(gender)) Console.WriteLine("Gender cannot be empty.");
+
             // Se o gênero não for 'M' ou 'F'
             if (gender != 'M' && gender != 'F')
-                throw new DomainException("Invalid Gender! Only 'M' or 'F' are accepted.");
+                throw new GenderException("Invalid Gender! Only 'M' or 'F' are accepted.");
         }
 
         // tratando o email
         public void ValidateEmail(string email)
         {
+            // email não pode ser vazio ou conter espaços em branco
+            if (string.IsNullOrWhiteSpace(email)) throw new EmailException("Email cannot be empty or with white spaces.");
+
+            // email precisa ter o sufixo @
+            if (!email.Contains("@")) throw new EmailException("Invalid email! It must contain '@'");
+
+            // email precisa terminar com '.com'
+            if (!email.EndsWith(".com")) throw new EmailException("Invalid email! It must end with '.com'");
+
             // uma lista com alguns domínios válidos, qualquer domínio fora desta lista lançará um erro
             List<string> domains = new List<string> { "gmail.com", "yahoo.com", "hotmail.com", "outlook.com" };
             bool validDomain = false;
@@ -58,10 +69,10 @@ namespace PhoenixBank.Entities.Accounts
                     break;
                 }
             }
-            if (validDomain) Console.WriteLine("O e-mail pertence a um domínio válido. Prossiga!");
+            if (validDomain) Console.WriteLine("O e-mail é válido. Prossiga!");
             else
             {
-                throw new Exception("O e-mail não pertence a um domínio válido.");
+                throw new EmailException("O e-mail não pertence a um domínio válido.");
                 Environment.Exit(0);
             }
         }
@@ -70,7 +81,7 @@ namespace PhoenixBank.Entities.Accounts
         public void ValidateRG(string rg)
         {
             // Vai verificar se o campo RG está vazio ou nulo; ou se há algum caractere diferente de números na hora de passar p/ ulong
-            if (string.IsNullOrEmpty(rg) || !ulong.TryParse(rg, out _)) throw new Exception("Invalid RG! Please enter only numbers.");
+            if (string.IsNullOrEmpty(rg) || !ulong.TryParse(rg, out _)) throw new RGException("Invalid RG! Please enter only numbers.");
         }
 
         // tratando a data de aniversário
@@ -78,8 +89,13 @@ namespace PhoenixBank.Entities.Accounts
         {
             int age;
             DateTime today = DateTime.Today;
-
-            age = today.Year - birthdayDate.Year;
+            
+            // caso o ano de nascimento (inserido pelo usuário) seja maior que o ano atual (de acordo com a aplicação rodando)
+            if(birthdayDate.Year > today.Year) throw new BirthdayException("The year of your birth is greater than the current year");
+            else
+            {
+                age = today.Year - birthdayDate.Year;
+            }
             return age;
         }
     }
