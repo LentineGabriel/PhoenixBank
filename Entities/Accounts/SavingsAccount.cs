@@ -2,10 +2,10 @@
 
 namespace PhoenixBank.Entities.Accounts
 {
-    internal class SavingsAccount : VerificationAccount
+    internal class SavingsAccount
     {
-        public double Balance { get; private set; }
-
+        public double Balance { get; set; }
+        public CommomAccount cAcc { get; set; }
         public SavingsAccount() { }
 
         public void Deposit(double amount)

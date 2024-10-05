@@ -13,7 +13,6 @@ namespace PhoenixBank.Entities.Accounts
         public char Gender { get; set; }
 
         public VerificationAccount() { }
-
         public VerificationAccount(string firstName, string lastName, string email, ulong rg, DateTime birthdayDate, char gender)
         {
             FirstName = firstName;

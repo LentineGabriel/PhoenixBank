@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using PhoenixBank.Entities.Exceptions;
+using System.Globalization;
 
 namespace PhoenixBank.Entities.Accounts
 {
@@ -15,19 +16,22 @@ namespace PhoenixBank.Entities.Accounts
             : base(firstName, lastName, email, rg, birthdayDate, gender)
         {
             CNPJ = cnpj;
+            Credit = credit;
             InitialBalance = initialBalance + credit;
             WithdrawLimit = 100000.00;
-            Credit = credit;
         }
 
         public void Deposit(double amount)
         {
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
             InitialBalance += amount;
         }
         public void Withdraw(double amount)
         {
-            if (amount > WithdrawLimit) Console.WriteLine("The amount to be withdrawn is greater than the withdraw limit.");
-            else InitialBalance -= amount * 0.05;
+            if (amount > WithdrawLimit) throw new DomainException("The amount to be withdrawn is greater than the withdraw limit.");
+            if (amount > InitialBalance) throw new DomainException("The requested amount is greater than the current value in the account.");
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
+            InitialBalance -= amount * 0.05;
         }
 
         // Entrando na conta...

@@ -1,4 +1,5 @@
-﻿using PhoenixBank.Services.Interfaces;
+﻿using PhoenixBank.Entities.Exceptions;
+using PhoenixBank.Services.Interfaces;
 using System.Globalization;
 
 namespace PhoenixBank.Entities.Accounts
@@ -21,9 +22,9 @@ namespace PhoenixBank.Entities.Accounts
             CompanyName = companyName;
             BusinessType = businessType;
             _pIndividual = pIndividual;
+            Credit = credit;
             InitialBalance = initialBalance + credit;
             WithdrawLimit = 250000.00;
-            Credit = credit;
         }
 
         // caso a pessoa escolha o CPF como entrada
@@ -54,12 +55,15 @@ namespace PhoenixBank.Entities.Accounts
 
         public void Deposit(double amount)
         {
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
             InitialBalance += amount;
         }
         public void Withdraw(double amount)
         {
-            if (amount > WithdrawLimit) Console.WriteLine("The amount to be withdrawn is greater than the withdraw limit.");
-            else InitialBalance -= amount * 0.03;
+            if (amount > WithdrawLimit) throw new DomainException("The amount to be withdrawn is greater than the withdraw limit.");
+            if (amount > InitialBalance) throw new DomainException("The requested amount is greater than the current value in the account.");
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
+            InitialBalance -= amount * 0.03;
         }
 
         // Entrando na conta...

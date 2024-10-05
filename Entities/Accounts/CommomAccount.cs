@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using PhoenixBank.Entities.Exceptions;
+using System.Globalization;
 using System.Reflection;
 
 namespace PhoenixBank.Entities.Accounts
@@ -19,10 +20,13 @@ namespace PhoenixBank.Entities.Accounts
 
         public void Deposit(double amount)
         {
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
             InitialBalance += amount;
         }
         public void Withdraw(double amount)
         {
+            if (amount > InitialBalance) throw new DomainException("The requested amount is greater than the current value in the account.");
+            if (amount <= 0.0) throw new DomainException("The amount requested must be greater than zero.");
             InitialBalance -= amount;
         }
 
