@@ -5,7 +5,6 @@ namespace PhoenixBank.Entities.Accounts
     internal class SavingsAccount
     {
         public double Balance { get; set; }
-        public CommomAccount cAcc { get; set; }
         public SavingsAccount() { }
 
         public void Deposit(double amount)
