@@ -46,7 +46,7 @@ namespace PhoenixBank.Entities.Accounts
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1 - Deposit");
             Console.WriteLine("2 - Withdraw");
-            Console.WriteLine("3 - Savings Account");
+            Console.WriteLine("3 - Savings");
             Console.WriteLine("4 - Exit");
             int op = int.Parse(Console.ReadLine());
 
@@ -68,8 +68,7 @@ namespace PhoenixBank.Entities.Accounts
 
                 // savings
                 case 3:
-                    SavingsAccount sA = new SavingsAccount();
-                    sA.EnterSavingsAccount();
+                    Savings();
                     break;
 
                 // exit
@@ -80,6 +79,30 @@ namespace PhoenixBank.Entities.Accounts
                 // a different number
                 default:
                     Console.WriteLine("Error! Invalid Number.");
+                    break;
+            }
+        }
+        public void Savings()
+        {
+            Console.Clear();
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("1 - Deposit"); // por enquanto, só vai dar p/ depositar
+            Console.WriteLine("2 - Exit");
+            int op = int.Parse(Console.ReadLine());
+
+            switch (op)
+            {
+                case 1:
+                    SavingsAccount sAccD = new SavingsAccount();
+
+                    Console.Write("Enter the amount you wish to deposit: "); double sAmount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    double res = sAccD.SavingsDeposit(InitialBalance, sAmount);
+                    Console.WriteLine("New Commom Balance: " + (InitialBalance - res));
+                    Console.WriteLine("Savings Balance: " + res);
+                    break;
+
+                case 2:
+                    System.Environment.Exit(0);
                     break;
             }
         }

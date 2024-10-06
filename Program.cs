@@ -49,7 +49,7 @@ namespace PhoenixBank
                     // a única opção possível é uma conta p/ jovens (menores de 18 anos)
                     Console.Clear();
                     Console.Write("Mother Name: "); string motherName = Console.ReadLine();
-                    Console.Write("Mother RG: "); ulong motherRG = ulong.Parse(Console.ReadLine());
+                    Console.Write("Mother RG (just numbers): "); ulong motherRG = ulong.Parse(Console.ReadLine());
                     Console.Write("Initial Balance: "); double tInitialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     TeenageAccount teenageAcc = new TeenageAccount(firstName, lastName, email, rg, birthdayDate, gender, motherName, motherRG, tInitialBalance);
                     
@@ -62,7 +62,6 @@ namespace PhoenixBank
                 Console.WriteLine("1 - Commom Account");
                 Console.WriteLine("2 - Enterprise Account");
                 Console.WriteLine("3 - Entrepreneur Account");
-                Console.WriteLine("4 - Savings Account");
                 int op = int.Parse(Console.ReadLine());
 
                 switch (op)
@@ -117,11 +116,6 @@ namespace PhoenixBank
                                 entrepreneursCnpjAcc.EnterEntrepreneursAccount();
                                 break;
                         }
-                        break;
-
-                    case 4: // savings account
-                        SavingsAccount sA = new SavingsAccount();
-                        sA.EnterSavingsAccount();
                         break;
 
                     default: // a different number
