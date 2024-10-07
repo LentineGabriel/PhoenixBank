@@ -10,12 +10,12 @@ namespace PhoenixBank
         static void Main(string[] args)
         {
             // Instanciando os valores iniciais
+
+            VerificationAccount vAcc = new VerificationAccount(); // instanciando vazio p/ tratar possíveis erros na validação
+
+            Console.WriteLine("Welcome to Phoenix Bank! Let's get started?");
             try
             {
-                VerificationAccount vAcc = new VerificationAccount(); // instanciando vazio p/ tratar possíveis erros na validação
-
-                Console.WriteLine("Welcome to Phoenix Bank! Let's get started?");
-
                 Console.Write("First Name: "); string firstName = Console.ReadLine();
                 Console.Write("Last Name: "); string lastName = Console.ReadLine();
                 vAcc.ValidateNames(firstName, lastName); // verificação do nome/sobrenome
@@ -51,7 +51,7 @@ namespace PhoenixBank
                     Console.Write("Mother RG (just numbers): "); ulong motherRG = ulong.Parse(Console.ReadLine());
                     Console.Write("Initial Balance: "); double tInitialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     TeenageAccount teenageAcc = new TeenageAccount(firstName, lastName, email, rg, birthdayDate, gender, motherName, motherRG, tInitialBalance);
-                    
+
                     Console.WriteLine("Wait...");
                     Thread.Sleep(2300);
 
@@ -70,7 +70,7 @@ namespace PhoenixBank
                         Console.Write("CPF (just numbers): "); ulong cpf = ulong.Parse(Console.ReadLine());
                         Console.Write("Initial Balance: "); double initialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                         CommomAccount commomAcc = new CommomAccount(firstName, lastName, email, rg, birthdayDate, gender, cpf, initialBalance);
-                        
+
                         Console.WriteLine("Wait...");
                         Thread.Sleep(2300);
 
@@ -79,46 +79,103 @@ namespace PhoenixBank
 
                     case 2: // enterprise account
                         Console.Clear();
-                        Console.WriteLine("CNPJ (just numbers): "); ulong cnpj = ulong.Parse(Console.ReadLine());
-                        Console.WriteLine("Initial Balance: "); double eInitialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        Console.WriteLine("Credit: "); double credit = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        EnterpriseAccount enterpriseAcc = new EnterpriseAccount(firstName, lastName, email, rg, birthdayDate, gender, cnpj, eInitialBalance, 100000.00, credit);
-                        
-                        Console.WriteLine("Wait...");
-                        Thread.Sleep(2300);
+                        Console.Write("CNPJ (just numbers): "); ulong cnpj = ulong.Parse(Console.ReadLine());
+                        Console.Write("Initial Balance: "); double eInitialBalance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                        Console.Write("Do you like a credit? (1 - yes; 2 - no)"); int op2 = int.Parse(Console.ReadLine());
 
-                        enterpriseAcc.EnterEnterpriseAccount();
+                        switch (op2)
+                        {
+                            case 1: // yes credit
+                                Console.Write("Credit: "); double credit = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                EnterpriseAccount enterpriseAcc = new EnterpriseAccount(firstName, lastName, email, rg, birthdayDate, gender, cnpj, eInitialBalance, 100000.00, credit);
+                                
+                                Console.WriteLine("Wait...");
+                                Thread.Sleep(2300);
+                                
+                                enterpriseAcc.EnterEnterpriseAccount();
+                                break;
+                            
+                            case 2: // no credit
+                                EnterpriseAccount enterpriseAcc2 = new EnterpriseAccount(firstName, lastName, email, rg, birthdayDate, gender, cnpj, eInitialBalance, 100000.00, 0.0);
+
+                                Console.WriteLine("Wait...");
+                                Thread.Sleep(2300);
+
+                                enterpriseAcc2.EnterEnterpriseAccount();
+                                break;
+
+                            default:
+                                Console.WriteLine("Error! Invalid Number.");
+                                break;
+                        }
                         break;
 
                     case 3:
                         Console.Clear();
                         Console.Write("Company Name: "); string eName = Console.ReadLine();
-                        Console.Write("CPF or CNPJ? (1 - CPF; 2 - CNPJ): "); int op2 = int.Parse(Console.ReadLine());
-                        switch (op2)
+                        Console.Write("CPF or CNPJ? (1 - CPF; 2 - CNPJ): "); int op3 = int.Parse(Console.ReadLine());
+                        switch (op3)
                         {
                             case 1: // cpf
                                 Console.Write("CPF (just numbers): "); ulong eCpf = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct1 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                                Console.Write("Credit: "); double cr = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                                EntrepreneursAccount entrepreneursCpfAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct1, new IPersonIndividual(), ib, 250000.00, cr); 
-                                
-                                entrepreneursCpfAcc.EnterEntrepreneursAccount();
+                                Console.Write("Do you like a credit? (1 - yes; 2 - no)"); int op4 = int.Parse(Console.ReadLine());
+
+                                switch (op4) // yes credit
+                                {
+                                    case 1:
+                                        Console.Write("Credit: "); double cr = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                        EntrepreneursAccount entrepreneursCpfAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct1, new IPersonIndividual(), ib, 250000.00, cr);
+
+                                        Console.WriteLine("Wait...");
+                                        Thread.Sleep(2300);
+
+                                        entrepreneursCpfAcc.EnterEntrepreneursAccount();
+                                        break;
+
+                                    case 2: // no credit
+                                        EntrepreneursAccount entrepreneursCpfAcc2 = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct1, new IPersonIndividual(), ib, 250000.00, 0.0);
+
+                                        Console.WriteLine("Wait...");
+                                        Thread.Sleep(2300);
+
+                                        entrepreneursCpfAcc2.EnterEntrepreneursAccount();
+                                        break;
+
+                                    default:
+                                        Console.WriteLine("Error! Invalid Number.");
+                                        break;
+                                }
                                 break;
+
                             case 2: // cnpj
                                 Console.Write("CNPJ (just numbers): "); ulong eCnpj = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct2 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                                Console.Write("Credit: "); double cr2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                                EntrepreneursAccount entrepreneursCnpjAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct2, new IPersonIndividual(), ib2, 250000.00, cr2);
-                                
-                                entrepreneursCnpjAcc.EnterEntrepreneursAccount();
+                                Console.Write("Do you like a credit? (1 - yes; 2 - no)"); int op5 = int.Parse(Console.ReadLine());
+
+                                switch (op5) // yes credit
+                                {
+                                    case 1:
+                                        Console.Write("Credit: "); double cr2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                        EntrepreneursAccount entrepreneursCnpjAcc = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct2, new IPersonIndividual(), ib2, 250000.00, cr2);
+
+                                        entrepreneursCnpjAcc.EnterEntrepreneursAccount();
+                                        break;
+
+                                    case 2: // no credit
+                                        EntrepreneursAccount entrepreneursCnpjAcc2 = new EntrepreneursAccount(firstName, lastName, email, rg, birthdayDate, gender, eName, ct2, new IPersonIndividual(), ib2, 250000.00, 0.0);
+
+                                        entrepreneursCnpjAcc2.EnterEntrepreneursAccount();
+                                        break;
+
+                                    default:
+                                        Console.WriteLine("Error! Invalid Number.");
+                                        break;
+                                }
                                 break;
                         }
-                        break;
-
-                    default: // a different number
-                        Console.WriteLine("Error! Invalid Number.");
                         break;
                 }
             }
