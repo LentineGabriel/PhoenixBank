@@ -37,6 +37,7 @@ namespace PhoenixBank.Entities.Accounts
         // tratando o gênero
         public void ValidateGender(char gender)
         {
+            // caso o usuário não colocar um dos gêneros propostos
             if (char.IsWhiteSpace(gender)) Console.WriteLine("Gender cannot be empty.");
 
             // Se o gênero não for 'M' ou 'F'
@@ -72,7 +73,6 @@ namespace PhoenixBank.Entities.Accounts
             else
             {
                 throw new EmailException("O e-mail não pertence a um domínio válido.");
-                Environment.Exit(0);
             }
         }
 
