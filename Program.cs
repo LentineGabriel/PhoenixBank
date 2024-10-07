@@ -1,5 +1,4 @@
 ﻿using PhoenixBank.Entities.Accounts;
-using PhoenixBank.Entities.Exceptions;
 using PhoenixBank.Services.Interfaces;
 using System.Globalization;
 
@@ -98,7 +97,7 @@ namespace PhoenixBank
                         switch (op2)
                         {
                             case 1: // cpf
-                                Console.Write("CPF: "); ulong eCpf = ulong.Parse(Console.ReadLine());
+                                Console.Write("CPF (just numbers): "); ulong eCpf = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct1 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                                 Console.Write("Credit: "); double cr = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -107,7 +106,7 @@ namespace PhoenixBank
                                 entrepreneursCpfAcc.EnterEntrepreneursAccount();
                                 break;
                             case 2: // cnpj
-                                Console.Write("CNPJ: "); ulong eCnpj = ulong.Parse(Console.ReadLine());
+                                Console.Write("CNPJ (just numbers): "); ulong eCnpj = ulong.Parse(Console.ReadLine());
                                 Console.Write("Company Type: "); string ct2 = Console.ReadLine();
                                 Console.Write("Initial Balance: "); double ib2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                                 Console.Write("Credit: "); double cr2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);

@@ -97,7 +97,7 @@ namespace PhoenixBank.Entities.Accounts
 
                     Console.Write("Enter the amount you wish to deposit: "); double sAmount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     double res = sAccD.SavingsDeposit(InitialBalance, sAmount);
-                    Console.WriteLine("New Commom Balance: " + (InitialBalance - res));
+                    Console.WriteLine("New Enterprise Balance: " + (InitialBalance - res));
                     Console.WriteLine("Savings Balance: " + res);
                     break;
 
